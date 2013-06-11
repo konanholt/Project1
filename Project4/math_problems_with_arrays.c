@@ -43,22 +43,21 @@ int main(void) {
 	operators[1] = '-';
 	operators[2] = '*';
 	operators[3] = '/';
-	int current_problem = 0;
+	int current_problem = 1;
         int answers[number_of_problems];
 	while ((current_problem) <= number_of_problems) {
-		current_problem++;
-                if(number_of_problems != 1 || current_problem != 1) {
+                if(number_of_problems > 1 || current_problem > 1) {
 			if(number_of_problems == current_problem) {
 	                        printf("Last Question!");
-	                } else {
-//	                	printf("%d: %d\n", (number_of_problems - 1) , current_problem);
-	                	printf("%d questions left\n", (number_of_problems - 1) - current_problem);
+	                } else if (number_of_problems != current_problem){
+//	                	printf("%d: %d\n", number_of_problems , current_problem);
+	                	printf("%d questions left\n", number_of_problems - (current_problem - 1));
 	                }
 		}
 		srand (time(NULL));
-		current_operator[current_problem] = operators[rand() % 4];
-		first_number[current_problem] = rand() % 10 + 1;
-		second_number[current_problem] = rand() % 10 + 1;
+		current_operator[current_problem - 1] = operators[rand() % 4];
+		first_number[current_problem - 1] = rand() % 10 + 1;
+		second_number[current_problem - 1] = rand() % 10 + 1;
 								
 		printf("Question # %d. Solve this math problem: %d %c %d? \n", (current_problem), first_number[current_problem - 1],current_operator[current_problem - 1], second_number[current_problem - 1]);
 		scanf("%d", &answers[current_problem - 1]);
@@ -69,6 +68,7 @@ int main(void) {
 		} else { 
 			printf ("Incorrect\n");
 		}
+		current_problem++;
 	}
 	printf("Final Score: %d out of %d.\nThanks for playing!\n", amount_correct, number_of_problems);
 	current_problem = 0;
