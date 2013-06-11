@@ -3,6 +3,20 @@
 #include <time.h>
 #include <stdbool.h>
 
+int solveProblem(first_number, second_number, operator) {
+	if(operator == '+') {
+		return (first_number + second_number);
+	} else if (operator == '/') {
+		return (first_number / second_number);
+	} else if (operator == '-') {
+                return (first_number - second_number);
+	} else if (operator == '*') {
+                return (first_number * second_number);
+	} else {
+		printf("Sorry!");
+	}
+}
+
 int main(void) {
 	int amount_correct, user_answer;
 	bool is_less_than_ten;
@@ -23,31 +37,43 @@ int main(void) {
 	int number_of_problems = user_answer;
         int first_number[number_of_problems];
         int second_number[number_of_problems];
-        char operator[number_of_problems];
-        int current_problem = 0;
+        char operators[number_of_problems];
+        char current_operator[4];
+	operators[0] = '+';
+	operators[1] = '-';
+	operators[2] = '*';
+	operators[3] = '/';
+	int current_problem = 0;
         int answers[number_of_problems];
-	
-	do {
+	while ((current_problem) <= number_of_problems) {
+		current_problem++;
+                if(number_of_problems != 1 || current_problem != 1) {
+			if(number_of_problems == current_problem) {
+	                        printf("Last Question!");
+	                } else {
+//	                	printf("%d: %d\n", (number_of_problems - 1) , current_problem);
+	                	printf("%d questions left\n", (number_of_problems - 1) - current_problem);
+	                }
+		}
 		srand (time(NULL));
+		current_operator[current_problem] = operators[rand() % 4];
 		first_number[current_problem] = rand() % 10 + 1;
 		second_number[current_problem] = rand() % 10 + 1;
-		operator[current_problem] = '+';
 								
-		printf("Question # %d. Solve this math problem: %d + %d? \n", (current_problem + 1), first_number[current_problem], second_number[current_problem]);
-		scanf("%d", &answers[current_problem]);
+		printf("Question # %d. Solve this math problem: %d %c %d? \n", (current_problem), first_number[current_problem - 1],current_operator[current_problem - 1], second_number[current_problem - 1]);
+		scanf("%d", &answers[current_problem - 1]);
 		
-		if(answers[current_problem] == (first_number[current_problem] + second_number[current_problem])) { 
-			printf ("Correct!");
+		if(answers[current_problem - 1] == solveProblem(first_number[current_problem - 1], second_number[current_problem - 1], current_operator[current_problem - 1])) { 
                         amount_correct++;
-		 } else { 
-			printf ("Incorrect");
+                        printf ("Correct!\n");
+		} else { 
+			printf ("Incorrect\n");
 		}
-		current_problem++;
-	} while ((current_problem + 1) <= number_of_problems);
-	printf("Final Score: %d/%d.\nThanks for playing!\n", amount_correct, number_of_problems);
+	}
+	printf("Final Score: %d out of %d.\nThanks for playing!\n", amount_correct, number_of_problems);
 	current_problem = 0;
 	do {
-		printf("Problem #%d (%d %c %d)\n", current_problem+1, first_number[current_problem], operator[0], second_number[current_problem]);
+		printf("Problem #%d (%d %c %d)\n", current_problem+1, first_number[current_problem], current_operator[current_problem], second_number[current_problem]);
 		current_problem++;
 	} while ((current_problem+1) <= number_of_problems);	
 }
