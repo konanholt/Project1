@@ -44,7 +44,7 @@ int main(void) {
 	operators[2] = '*';
 	operators[3] = '/';
 	int current_problem = 1;
-        int answers[number_of_problems];
+        double answers[number_of_problems];
 	while ((current_problem) <= number_of_problems) {
                 if(number_of_problems > 1 || current_problem > 1) {
 			if(number_of_problems == current_problem) {
@@ -60,7 +60,7 @@ int main(void) {
 		second_number[current_problem - 1] = rand() % 10 + 1;
 								
 		printf("Question # %d. Solve this math problem: %d %c %d? \n", (current_problem), first_number[current_problem - 1],current_operator[current_problem - 1], second_number[current_problem - 1]);
-		scanf("%d", &answers[current_problem - 1]);
+		scanf("%lf", &answers[current_problem - 1]);
 		
 		if(answers[current_problem - 1] == solveProblem(first_number[current_problem - 1], second_number[current_problem - 1], current_operator[current_problem - 1])) { 
                         amount_correct++;
@@ -73,7 +73,24 @@ int main(void) {
 	printf("Final Score: %d out of %d.\nThanks for playing!\n", amount_correct, number_of_problems);
 	current_problem = 0;
 	do {
-		printf("Problem #%d (%d %c %d)\n", current_problem+1, first_number[current_problem], current_operator[current_problem], second_number[current_problem]);
+		double answer = solveProblem(first_number[current_problem], second_number[current_problem], current_operator[current_problem]);
+		double difference;
+		
+		if(answer != answers[current_problem]) {
+			if( answer > answers[current_problem]) {
+				difference = answer - answers[current_problem];
+			} else {
+				difference = answers[current_problem] - answer;
+			}
+			printf("User Answer: %.2f; Correct Answer: %.2f; Difference: %.2f\n", answers[current_problem], answer, difference);
+		} else {
+			difference = 0;
+		}
+		if(answer == answers[current_problem]) {	
+			printf("Problem #%d (%d %c %d) = %.2f\n", current_problem+1, first_number[current_problem], current_operator[current_problem], second_number[current_problem], answer );
+		} else {
+                        printf("Problem #%d (%d %c %d) = %.2f – Off by %.2f\n", current_problem+1, first_number[current_problem], current_operator[current_problem], second_number[current_problem], answer, difference );
+		}
 		current_problem++;
 	} while ((current_problem+1) <= number_of_problems);	
 }
