@@ -5,19 +5,29 @@
 
 struct problem {
 	int num1;
-	char operator;
 	int num2;
+	char operator;
 	float user_answer;
 	float correct_answer;
 	float difference;
+	struct problem *next;
 };
 
-struct problem *curr, *head, *tail;
+struct problem *curr=NULL, *head=NULL, *tail=NULL;
 
-struct problem* addProblem() {
+void buildProblem() {
 	struct problem *new_problem = malloc(sizeof(struct problem));
 	srand (time(NULL));
+	if(head == NULL) {
+		head = new_problem;
+	}
+	if(tail != NULL) {
+		tail->next = new_problem;
+	}
+	tail = new_problem;
+	new_problem->next = NULL;
 	new_problem->num1 = rand() % 10 + 1;
+	printf("new_problem->num1 = %d\n", new_problem->num1);
 	new_problem->num2 = rand() % 10 + 1;
 	switch(rand() % 4) {
         	case 0 :
@@ -40,34 +50,39 @@ struct problem* addProblem() {
 			printf("Hey, wha happen?!");
 			break;
 	}
-	return(tail);
+	printf("%d %c %d\n", new_problem->num1, new_problem->operator, new_problem->num2);
 //	new_problem->user_answer
 //	new_problem->difference
 }
-	bool is_less_than_ten = false;
-	while ( is_less_than_ten != true ) {
-            printf("How many problems do you want to solve? (Please choose 1-10)");
-            scanf("%d", &user_answer);
-			if(user_answer <= 10) {
-        	is_less_than_ten = true;
-        } else {
-            printf ("You chose %d. Please choose 10 problems or fewer.\n", user_answer);
-        	is_less_than_ten = false;
-    	}
-    } 
-
-int solveProblem(curr->num1, curr->num, curr->operator) {
-        if(curr->operator == '+') {
-                return (curr->num1 + curr->num2);
-        } else if (curr->operator == '/') {
-                return (curr->num1 / curr->num2);
-        } else if (curr->operator == '-') {
-                return (curr->num1 - curr->num2);
-        } else if (curr->operator == '*') {
-                return (curr->num1 * curr->num2);
-        } else {        
-                printf("Sorry!");
-                return 0;
-        }               
-}       
-
+/*
+	int solveProblem(struct problem *curr) {
+	        if(curr->operator == '+') {
+	                return (curr->num1 + curr->num2);
+	        } else if (curr->operator == '/') {
+	                return (curr->num1 / curr->num2);
+	        } else if (curr->operator == '-') {
+	                return (curr->num1 - curr->num2);
+	        } else if (curr->operator == '*') {
+	                return (curr->num1 * curr->num2);
+	        } else {        
+	                printf("Sorry!");
+	                return 0;
+	        }               
+	}       
+*/	
+	int main() {
+		int number_of_problems;
+		printf("How many problems do you want to solve? (Please choose 1-10)");
+		scanf("%d", &number_of_problems);
+		while ( number_of_problems > 10 ) {
+       	     		printf ("You chose %d. Please choose 10 problems or fewer.\n", number_of_problems);
+			printf("How many problems do you want to solve? (Please choose 1-10)");
+			scanf("%d", &number_of_problems);
+		} 
+		int current_problem = 1;
+		while ( current_problem <= number_of_problems ) {
+			buildProblem();
+			current_problem++;
+		}
+		return 0;
+	}
