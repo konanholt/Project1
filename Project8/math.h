@@ -8,6 +8,8 @@ struct problem {
 	struct problem *next;
 };
 
+struct problem *curr=NULL, *head=NULL, *tail=NULL;
+
 void buildProblem() {
 	struct problem *new_problem = malloc(sizeof(struct problem));
 	srand (time(NULL));

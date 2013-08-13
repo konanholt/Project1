@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
-#include <math.h>
+#include "math.h"
 
 	int main() {
 		int number_of_problems;
