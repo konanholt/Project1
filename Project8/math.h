@@ -42,4 +42,14 @@ void buildProblem() {
 			printf("Hey, wha happen?!");
 			break;
 	}
+	printf("%d %c %d\n", new_problem->num1, new_problem->operator, new_problem->num2);
+	scanf("%lf", &new_problem->user_answer);
+	if(new_problem->user_answer == new_problem->correct_answer) {
+		printf("Correct!");
+	} else {
+		printf("Incorrect. The correct answer was %f", new_problem->correct_answer);
+	}
+//	new_problem->user_answer
+//	new_problem->difference
+}
 
