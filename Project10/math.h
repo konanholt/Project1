@@ -45,10 +45,10 @@ void buildProblem() {
 			break;
 	}
 	#ifdef FOO
-		new_problem->num1 = 10;
+		new_problem->num1 = 7;
 		new_problem->num2 = 2;
 		new_problem->operator = '+';
-		new_problem->user_answer = 12;
+		new_problem->user_answer = 9;
 		new_problem->correct_answer = new_problem->num1 + new_problem->num2;
 		if((float) new_problem->num2 == 0) {
 		      	printf("Cannot divide by zero. Changing num2\n");
