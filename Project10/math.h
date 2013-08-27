@@ -3,7 +3,6 @@ struct problem {
 	int num2;
 	char operator;
 	double user_answer;
-	double projected_answer;
 	double correct_answer;
 	double difference;
 	struct problem *next;
@@ -46,39 +45,23 @@ void buildProblem() {
 			break;
 	}
 	#ifdef FOO
+		new_problem->num1 = 10;
+		new_problem->num2 = 2;
+		new_problem->operator = '+';
+		new_problem->user_answer = 12;
+		new_problem->correct_answer = new_problem->num1 + new_problem->num2;
 		if((float) new_problem->num2 == 0) {
 		      	printf("Cannot divide by zero. Changing num2\n");
 			new_problem->num2 = 1;
 		}
-		new_problem->num1 = 10;
-		new_problem->num2 = 2;
-		new_problem->operator = '+';
-		new_problem->projected_answer = 12;
-		new_problem->correct_answer = new_problem->num1 + new_problem->num2;
-		if(new_problem->projected_answer != new_problem->correct_answer) {
-			printf("Projected answer (%f) not equal to correct answer (%f)\n", new_problem->projected_answer, new_problem->correct_answer);
-		}
-		new_problem->operator = '-';
-		new_problem->projected_answer = 8;
-		new_problem->correct_answer = new_problem->num1 - new_problem->num2;
-		if(new_problem->projected_answer != new_problem->correct_answer) {
-			printf("Projected answer (%f) not equal to correct answer (%f)\n", new_problem->projected_answer, new_problem->correct_answer);
-		}
-		new_problem->operator == '/';
-		new_problem->projected_answer = 5;
-		new_problem->correct_answer = new_problem->num1 / new_problem->num2;
-		if(new_problem->projected_answer != new_problem->correct_answer) {
-			printf("Projected answer (%f) not equal to correct answer (%f)\n", new_problem->projected_answer, new_problem->correct_answer);
-		}
-		new_problem->operator == '*';
-		new_problem->projected_answer = 20;
-		new_problem->correct_answer = new_problem->num1 * new_problem->num2;
-		if(new_problem->projected_answer != new_problem->correct_answer) {
-			printf("Projected answer (%f) not equal to correct answer (%f)\n", new_problem->projected_answer, new_problem->correct_answer);
+		if(new_problem->user_answer != new_problem->correct_answer) {
+			printf("Projected answer (%f) not equal to correct answer (%f)\n", new_problem->user_answer, new_problem->correct_answer);
 		}
 	#endif
 	printf("%d %c %d\n", new_problem->num1, new_problem->operator, new_problem->num2);
-	scanf("%lf", &new_problem->user_answer);
+	#ifndef FOO
+		scanf("%lf", &new_problem->user_answer);
+	#endif
 	if(new_problem->user_answer == new_problem->correct_answer) {
 		printf("Correct!\n");
 	} else {
